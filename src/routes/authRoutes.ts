@@ -1,10 +1,13 @@
-import { generateToken, generateRefreshToken, hashPassword, comparePassword, authenticate } from './auth';
+import { generateToken, generateRefreshToken, hashPassword, comparePassword, authenticate } from '../auth';
 import { Router, Request, Response } from 'express';
-import prisma, { User } from './prisma';
+import prisma, { User } from '../prisma';
+import { validate } from "../middlewares/validate"
+import { createUserValidator } from "../validation/createUserValidator"
+import { refreshTokenValidator } from "../validation/refreshTokenValidator"
 
 const router = Router();
 
-router.post('/register', async (req: Request, res: Response) => {
+router.post('/register', createUserValidator, validate, async (req: Request, res: Response) => {
     const { email, password } = req.body;
     const hashedPassword = await hashPassword(password);
 
@@ -24,7 +27,7 @@ router.post('/register', async (req: Request, res: Response) => {
     }
 });
 
-router.post('/login', async (req: Request, res: Response) => {
+router.post('/login', createUserValidator, validate, async (req: Request, res: Response) => {
     const { email, password } = req.body;
 
     const user = await prisma.user.findUnique({ where: { email } }) as User;
@@ -42,7 +45,7 @@ router.post('/login', async (req: Request, res: Response) => {
     res.json({ token, refreshToken });
 });
 
-router.post('/refresh-token', async (req: Request, res: Response) => {
+router.post('/refresh-token', refreshTokenValidator, validate, async (req: Request, res: Response) => {
     const { refreshToken } = req.body;
 
     const storedToken = await prisma.refreshToken.findUnique({ where: { token: refreshToken } });

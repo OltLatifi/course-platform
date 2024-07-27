@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import passport from 'passport';
-import routes from './routes';
+import routes from './routes/authRoutes';
 import prisma from './prisma';
 
 const app = express();
