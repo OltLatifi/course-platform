@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validate, validateParams } from '../middleware/validate';
+import { validate, validateParams } from '../middlewares/validate';
 import {
   createCourseValidator,
   updateCourseValidator,
@@ -14,12 +14,13 @@ import {
 
 const router = Router();
 
-router.post('/courses', validate(createCourseValidator), createCourse);
+router.post('/courses', validateBody(createCourseValidator), createCourse);
 
-router.put('/courses/:id', validateParams(courseIdParamValidator), validate(updateCourseValidator), updateCourse);
+router.put('/courses/:id', validateParams(courseIdParamValidator), validateBody(updateCourseValidator), updateCourse);
 
 router.delete('/courses/:id', validateParams(courseIdParamValidator), deleteCourse);
 
 router.get('/courses/:id', validateParams(courseIdParamValidator), getCourse);
 
 export default router;
+

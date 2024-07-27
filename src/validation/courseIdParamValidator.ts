@@ -1,5 +1,7 @@
-import Joi from 'joi';
+import { param } from 'express-validator';
 
-export const courseIdParamValidator = Joi.object({
-  id: Joi.number().guid().required(), 
-});
+export const courseIdParamValidator = [
+    param('id')
+        .isInt().withMessage('ID must be an integer')
+        .toInt() 
+];
