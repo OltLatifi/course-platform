@@ -10,8 +10,8 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(passport.initialize());
-app.use('/api', routes);
-app.use('/api', courseRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/courses', courseRoutes);
 
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
