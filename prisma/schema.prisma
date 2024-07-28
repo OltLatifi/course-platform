@@ -27,9 +27,7 @@ model RefreshToken {
 }
 
 model Course {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String  // Updated from explanation to description
+    id          Int    @id @default(autoincrement())
+    title       String
+    description String
 }
-
-

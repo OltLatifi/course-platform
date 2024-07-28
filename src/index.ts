@@ -1,9 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
 import passport from 'passport';
-import routes from './routes/authRoutes';
+import authRoutes from './routes/authRoutes';
 import courseRoutes from './routes/courseRoutes';
-import prisma from './prisma';
 
 const app = express();
 const port = process.env.PORT || 3000;
