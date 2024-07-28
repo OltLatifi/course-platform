@@ -77,3 +77,20 @@ export const getCourse = async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Error retrieving course' });
     }
 };
+
+export const addChapterToCourse = async (req: Request, res: Response) => {
+    try {
+      const { courseId } = req.params;
+      const { title, content } = req.body;
+      const chapter = await prisma.chapter.create({
+        data: {
+          title,
+          content,
+          courseId: Number(courseId),
+        },
+      });
+      res.status(201).json(chapter);
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to add chapter to course' });
+    }
+  };

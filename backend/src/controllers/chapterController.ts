@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import prisma from '../prismaClient';
+import prisma, { User } from '../prisma';
 
 export const createChapter = async (req: Request, res: Response) => {
   try {
