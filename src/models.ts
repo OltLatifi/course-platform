@@ -14,3 +14,10 @@ export interface RefreshToken {
     updatedAt: Date;
     expiresAt: Date;
 }
+
+export interface Course {
+    id: number;
+    title: string;
+    description: string;
+    userId: number;
+}

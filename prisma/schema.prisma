@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-    id        Int            @id @default(autoincrement())
-    email     String         @unique
-    password  String
-    createdAt DateTime       @default(now())
-    updatedAt DateTime       @updatedAt
-    tokens    RefreshToken[]
+    id             Int            @id @default(autoincrement())
+    email          String         @unique
+    password       String
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    tokens         RefreshToken[]
+    createdCourses Course[]
 }
 
 model RefreshToken {
@@ -27,9 +28,9 @@ model RefreshToken {
 }
 
 model Course {
-  id          Int    @id @default(autoincrement())
-  title       String
-  description String  // Updated from explanation to description
+    id          Int    @id @default(autoincrement())
+    title       String
+    description String
+    userId      Int
+    user        User   @relation(fields: [userId], references: [id])
 }
-
-
