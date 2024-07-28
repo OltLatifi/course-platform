@@ -1,17 +1,15 @@
 import { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma, { User } from '../prisma';
 
 export const createCourse = async (req: Request, res: Response) => {
+    const user = req.user!;
     try {
         const { title, description } = req.body;
         const newCourse = await prisma.course.create({
-            data: { title, description },
+            data: { title, description, userId: user.id },
         });
         res.status(201).json(newCourse);
     } catch (error) {
-        console.log(error)
         res.status(500).json({ error: 'Error creating course' });
     }
 };

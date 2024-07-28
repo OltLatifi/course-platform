@@ -17,7 +17,7 @@ passport.use(
         },
         async (jwtPayload, done) => {
             try {
-                const user = await prisma.user.findUnique({ where: { id: jwtPayload.id } });
+                const user = await prisma.user.findUnique({ where: { id: jwtPayload.id } }) as User;
                 if (user) {
                     return done(null, user);
                 } else {

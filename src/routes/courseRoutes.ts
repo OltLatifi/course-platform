@@ -4,6 +4,7 @@ import { createCourseValidator } from '../validation/createCourseValidator'
 import { updateCourseValidator } from '../validation/updateCourseValidator'
 import { courseIdParamValidator } from '../validation/courseIdParamValidator'
 
+
 import {
     createCourse,
     updateCourse,

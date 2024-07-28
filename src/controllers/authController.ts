@@ -1,4 +1,4 @@
-import { generateToken, generateRefreshToken, hashPassword, comparePassword, authenticate } from '../auth';
+import { generateToken, generateRefreshToken, hashPassword, comparePassword } from '../auth';
 import { Request, Response } from 'express';
 import prisma, { User } from '../prisma';
 
