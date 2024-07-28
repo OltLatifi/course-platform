@@ -64,7 +64,11 @@ const refresh = async (req: Request, res: Response) => {
 }
 
 const me = async (req: Request, res: Response) => {
-    res.json(req.user);
+    const user = req.user!;
+    const courses = await prisma.course.findMany({
+        where: { userId: user.id }
+    });
+    res.json({ "user": req.user, "courses": courses });
 }
 
 export {
