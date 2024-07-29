@@ -15,6 +15,7 @@ model User {
     updatedAt      DateTime       @updatedAt
     tokens         RefreshToken[]
     createdCourses Course[]
+    lectures       Lecture[]
     Chapter        Chapter[]
 }
 
@@ -38,12 +39,23 @@ model Course {
 }
 
 model Chapter {
-    id       Int    @id @default(autoincrement())
-    title    String
-    content  String
-    courseId Int
-    userId   Int
+  id        Int     @id @default(autoincrement())
+  title     String
+  content   String
+  courseId Int
+  userId   Int
 
-    user   User   @relation(fields: [userId], references: [id])
-    course Course @relation(fields: [courseId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+  lectures  Lecture[]
+}
+
+model Lecture {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  chapterId Int
+  chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  userId    Int    
+  user      User     @relation(fields: [userId], references: [id])
 }
