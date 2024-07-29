@@ -4,8 +4,7 @@ import { createCourseValidator } from '../validation/createCourseValidator'
 import { updateCourseValidator } from '../validation/updateCourseValidator'
 import { courseIdParamValidator } from '../validation/courseIdParamValidator'
 import { addChapterToCourse } from '../controllers/courseController';
-import { validate } from '../middlewares/validate';
-import { createChapterValidator, courseIdParamValidator } from '../validation';
+import { createChapterValidator } from '../validation/createChapterValidator';
 
 import {
     createCourse,
@@ -20,7 +19,7 @@ router.post('/', validateBody(createCourseValidator), createCourse);
 router.put('/:id', validateParams(courseIdParamValidator), validateBody(updateCourseValidator), updateCourse);
 router.delete('/:id', validateParams(courseIdParamValidator), deleteCourse);
 router.get('/:id', validateParams(courseIdParamValidator), getCourse);
-router.post('/courses/:courseId/chapters', validate(courseIdParamValidator), validate(createChapterValidator), addChapterToCourse);
+router.post('/courses/:courseId/chapters', validateParams(courseIdParamValidator), validateBody(createChapterValidator), addChapterToCourse);
 
 export default router;
 
