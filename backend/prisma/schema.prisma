@@ -15,6 +15,7 @@ model User {
     updatedAt      DateTime       @updatedAt
     tokens         RefreshToken[]
     createdCourses Course[]
+    lectures       Lecture[]
 }
 
 model RefreshToken {
@@ -51,4 +52,6 @@ model Lecture {
   content   String
   chapterId Int
   chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  userId    Int    
+  user      User     @relation(fields: [userId], references: [id])
 }

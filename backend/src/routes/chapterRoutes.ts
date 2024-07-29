@@ -1,7 +1,9 @@
 import { Router } from 'express';
 import { createChapter, getChapter, updateChapter, deleteChapter } from '../controllers/chapterController';
 import { validate } from '../middlewares/validate';
-import { createChapterValidator, updateChapterValidator, chapterIdParamValidator } from '../validation';
+import { createChapterValidator } from '../validation/createChapterValidator';
+import { chapterIdParamValidator } from '../validation/chapterIdParamValidator';
+import { updateChapterValidator } from '../validation/updateChapterValidator';
 
 const router = Router();
 

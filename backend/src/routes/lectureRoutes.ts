@@ -1,14 +1,16 @@
 import { Router } from 'express';
 import { createLecture, getLectures, getLectureById, updateLecture, deleteLecture } from '../controllers/lectureController';
-import { validate } from '../middlewares/validate';
-import { createLectureValidator, updateLectureValidator, lectureIdParamValidator } from '../validation';
+import { validateBody, validateParams } from '../middlewares/validate';
+import { createLectureValidator } from '../validation/createLectureValidator';
+import { updateLectureValidator } from '../validation/updateLectureValidator';
 
 const router = Router();
 
-router.post('/', validate(createLectureValidator), createLecture);
+router.post('/', validateBody(createLectureValidator), createLecture);
 router.get('/', getLectures);
-router.get('/:id', validate(lectureIdParamValidator), getLectureById);
-router.put('/:id', validate(updateLectureValidator), updateLecture);
-router.delete('/:id', validate(lectureIdParamValidator), deleteLecture);
+router.get('/:id', validateParams(createLectureValidator), getLectureById);
+router.put('/:id', validateParams(updateLectureValidator), validateBody(updateLectureValidator), updateLecture);
+router.delete('/:id', validateParams(updateLectureValidator), deleteLecture);
+
 
 export default router;

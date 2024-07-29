@@ -5,7 +5,7 @@ import { updateCourseValidator } from '../validation/updateCourseValidator'
 import { courseIdParamValidator } from '../validation/courseIdParamValidator'
 import { addChapterToCourse } from '../controllers/courseController';
 import { validate } from '../middlewares/validate';
-import { createChapterValidator, courseIdParamValidator } from '../validation';
+import { createChapterValidator } from '../validation/createChapterValidator';
 
 import {
     createCourse,
