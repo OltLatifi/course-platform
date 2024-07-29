@@ -1,17 +1,26 @@
 import { Request, Response } from 'express';
 import prisma from '../prisma';
 
+
 export const createLecture = async (req: Request, res: Response) => {
-  const { title, content, chapterId } = req.body;
-  try {
-    const lecture = await prisma.lecture.create({
-      data: { title, content, chapterId },
-    });
-    res.status(201).json(lecture);
-  } catch (error) {
-    res.status(500).json({ error: 'Error creating lecture' });
-  }
-};
+    const user = req.user!; 
+    const { title, content, chapterId } = req.body;
+    
+    try {
+      const lecture = await prisma.lecture.create({
+        data: {
+          title,
+          content,
+          chapterId,
+          userId: user.id, 
+        },
+      });
+      res.status(201).json(lecture);
+    } catch (error) {
+      res.status(500).json({ error: 'Error creating lecture' });
+    }
+ };
+  
 
 export const getLectures = async (req: Request, res: Response) => {
   try {
