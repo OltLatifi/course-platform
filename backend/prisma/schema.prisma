@@ -42,4 +42,13 @@ model Chapter {
   content   String
   courseId  Int
   course    Course  @relation(fields: [courseId], references: [id])
+  lectures  Lecture[]
+}
+
+model Lecture {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  chapterId Int
+  chapter   Chapter  @relation(fields: [chapterId], references: [id])
 }
