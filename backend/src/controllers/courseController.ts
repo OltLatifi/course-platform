@@ -17,13 +17,14 @@ export const createCourse = async (req: Request, res: Response) => {
 export const updateCourse = async (req: Request, res: Response) => {
     const { id } = req.params;
     const { title, description } = req.body;
+    const user = req.user!;
 
     try {
         const course = await prisma.course.findUnique({
             where: { id: Number(id) },
         });
 
-        if (!course) {
+        if (!course || course.userId === user.id) {
             return res.status(404).json({ error: 'Course not found' });
         }
         const updatedCourse = await prisma.course.update({
@@ -39,13 +40,14 @@ export const updateCourse = async (req: Request, res: Response) => {
 
 export const deleteCourse = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const user = req.user!;
 
     try {
         const course = await prisma.course.findUnique({
             where: { id: Number(id) },
         });
 
-        if (!course) {
+        if (!course || course.userId === user.id) {
             return res.status(404).json({ error: 'Course not found' });
         }
 
@@ -62,13 +64,14 @@ export const deleteCourse = async (req: Request, res: Response) => {
 
 export const getCourse = async (req: Request, res: Response) => {
     const { id } = req.params;
+    const user = req.user!;
 
     try {
         const course = await prisma.course.findUnique({
             where: { id: Number(id) },
         });
 
-        if (!course) {
+        if (!course || course.userId === user.id) {
             res.status(404).json({ error: 'Course not found' });
         }
 
@@ -80,17 +83,18 @@ export const getCourse = async (req: Request, res: Response) => {
 
 export const addChapterToCourse = async (req: Request, res: Response) => {
     try {
-      const { courseId } = req.params;
-      const { title, content } = req.body;
-      const chapter = await prisma.chapter.create({
-        data: {
-          title,
-          content,
-          courseId: Number(courseId),
-        },
-      });
-      res.status(201).json(chapter);
+        const { courseId } = req.params;
+        const { title, content } = req.body;
+        const user = req.user!;
+        const chapter = await prisma.chapter.create({
+            data: {
+                title,
+                content,
+                courseId: Number(courseId),
+            },
+        });
+        res.status(201).json(chapter);
     } catch (error) {
-      res.status(500).json({ error: 'Failed to add chapter to course' });
+        res.status(500).json({ error: 'Failed to add chapter to course' });
     }
-  };
+};

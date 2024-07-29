@@ -16,6 +16,7 @@ model User {
     tokens         RefreshToken[]
     createdCourses Course[]
     lectures       Lecture[]
+    Chapter        Chapter[]
 }
 
 model RefreshToken {
@@ -29,11 +30,11 @@ model RefreshToken {
 }
 
 model Course {
-    id          Int    @id @default(autoincrement())
+    id          Int       @id @default(autoincrement())
     title       String
     description String
     userId      Int
-    user        User   @relation(fields: [userId], references: [id])
+    user        User      @relation(fields: [userId], references: [id])
     chapters    Chapter[]
 }
 
@@ -41,8 +42,11 @@ model Chapter {
   id        Int     @id @default(autoincrement())
   title     String
   content   String
-  courseId  Int
-  course    Course  @relation(fields: [courseId], references: [id])
+  courseId Int
+  userId   Int
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
   lectures  Lecture[]
 }
 

@@ -21,3 +21,11 @@ export interface Course {
     description: string;
     userId: number;
 }
+
+export interface Chapter {
+    id: number;
+    title: string;
+    content: string;
+    userId: number;
+    courseId: number;
+}
