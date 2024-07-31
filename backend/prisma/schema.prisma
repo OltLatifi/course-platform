@@ -58,4 +58,13 @@ model Lecture {
   chapter   Chapter  @relation(fields: [chapterId], references: [id])
   userId    Int    
   user      User     @relation(fields: [userId], references: [id])
+  sections  Section[]
+}
+
+model Section {
+  id        Int       @id @default(autoincrement())
+  name      String
+  photo     String
+  lectureId Int
+  lecture   Lecture   @relation(fields: [lectureId], references: [id])
 }
