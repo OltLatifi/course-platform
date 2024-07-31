@@ -1,14 +1,15 @@
 import 'dotenv/config';
 import express from 'express';
 import passport from 'passport';
+import cors from 'cors';
 
 import authRoutes from './routes/authRoutes';
 import courseRoutes from './routes/courseRoutes';
 import chapterRoutes from './routes/chapterRoutes';
 import lectureRoutes from './routes/lectureRoutes';
+import sectionRoutes from './routes/sectionRoutes';
 
 import { authenticate } from './auth';
-import sectionRoutes from './routes/sectionRoutes';
 
 
 const app = express();
@@ -16,6 +17,7 @@ const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(passport.initialize());
+app.use(cors())
 
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', authenticate, courseRoutes);
