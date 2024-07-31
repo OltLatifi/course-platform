@@ -64,7 +64,7 @@ model Lecture {
 model Section {
   id        Int       @id @default(autoincrement())
   name      String
-  photo     String?   // You can adjust the type based on your needs
+  photo     String
   lectureId Int
   lecture   Lecture   @relation(fields: [lectureId], references: [id])
 }
